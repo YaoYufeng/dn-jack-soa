@@ -4,13 +4,23 @@ import java.lang.reflect.Method;
 
 import com.dongnao.jack.configBean.Reference;
 
+/**
+ * 调用信息
+ * @author coderyao
+ */
 public class Invocation {
-    
+
+    /**
+     * 调用的方法
+     */
     private Method method;
-    
+
+    /**
+     * 调用的入参
+     */
     private Object[] objs;
     
-    private Invoke invoke;
+    private Invoker invoker;
     
     private Reference reference;
     
@@ -38,12 +48,12 @@ public class Invocation {
         this.reference = reference;
     }
     
-    public Invoke getInvoke() {
-        return invoke;
+    public Invoker getInvoker() {
+        return invoker;
     }
     
-    public void setInvoke(Invoke invoke) {
-        this.invoke = invoke;
+    public void setInvoker(Invoker invoker) {
+        this.invoker = invoker;
     }
     
 }

@@ -24,21 +24,16 @@ import com.dongnao.jack.configBean.Service;
 /** 
  * @Description 这个是soa框架中给生产者接收请求用的servlet，这个必须是采用http协议才能掉得到 
  * @ClassName   DispatcherServlet 
- * @Date        2017年11月16日 下午8:32:06 
- * @Author      dn-jack 
+ * @date        2017年11月16日 下午8:32:06
+ * @author      dn-jack
  */
 
 public class DispatcherServlet extends HttpServlet {
-    
-    /** 
-     * @Fields serialVersionUID TODO 
-     */
-    
-    private static final long serialVersionUID = 2368065256546765L;
-    
+
+    private static final long serialVersionUID = -5454496174884564661L;
+
     @Override
-    protected void service(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
+    protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             JSONObject requestparam = httpProcess(req, resp);
             //要从远程的生产者的spring容器中拿到对应的serviceid实例
@@ -56,109 +51,97 @@ public class DispatcherServlet extends HttpServlet {
                     objs[i++] = o;
                 }
             }
-            
+
             //拿到spring的上下文
             ApplicationContext application = Service.getApplication();
             //服务层的实例
             Object serviceBean = application.getBean(serviceId);
-            
+
             //这个方法的获取，要考虑到这个方法的重载
             Method method = getMethod(serviceBean, methodName, paramTypes);
-            
+
             if (method != null) {
                 Object result;
-                
+
                 result = method.invoke(serviceBean, objs);
-                
+
                 PrintWriter pw = resp.getWriter();
                 pw.write(result.toString());
-            }
-            else {
+            } else {
                 PrintWriter pw = resp.getWriter();
                 pw.write("---------------------------------nosuchmethod-----------------------------");
             }
-        }
-        catch (IllegalAccessException e) {
-            // TODO Auto-generated catch block
+        } catch (IllegalAccessException e) {
             e.printStackTrace();
-        }
-        catch (IllegalArgumentException e) {
-            // TODO Auto-generated catch block
+        } catch (IllegalArgumentException e) {
             e.printStackTrace();
-        }
-        catch (InvocationTargetException e) {
-            // TODO Auto-generated catch block
+        } catch (InvocationTargetException e) {
             e.printStackTrace();
         }
     }
-    
-    private Method getMethod(Object bean, String methodName,
-            JSONArray paramTypes) {
-        
+
+    private Method getMethod(Object bean, String methodName, JSONArray paramTypes) {
+
         Method[] methods = bean.getClass().getMethods();
         List<Method> retMethod = new ArrayList<Method>();
-        
+
         for (Method method : methods) {
             //把名字和methodName入参相同的方法加入到list中来
             if (methodName.trim().equals(method.getName())) {
                 retMethod.add(method);
             }
         }
-        
+
         //如果大小是1就说明相同的方法只有一个
         if (retMethod.size() == 1) {
             return retMethod.get(0);
         }
-        
+
         boolean isSameSize = false;
         boolean isSameType = false;
         jack: for (Method method : retMethod) {
             Class<?>[] types = method.getParameterTypes();
-            
+
             if (types.length == paramTypes.size()) {
                 isSameSize = true;
             }
-            
+
             if (!isSameSize) {
                 continue;
             }
-            
+
             for (int i = 0; i < types.length; i++) {
                 if (types[i].toString().contains(paramTypes.getString(i))) {
                     isSameType = true;
-                }
-                else {
+                } else {
                     isSameType = false;
                 }
                 if (!isSameType) {
                     continue jack;
                 }
             }
-            
+
             if (isSameType) {
                 return method;
             }
         }
         return null;
     }
-    
-    public static JSONObject httpProcess(HttpServletRequest req,
-            HttpServletResponse resp) throws IOException {
+
+    public static JSONObject httpProcess(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         StringBuffer sb = new StringBuffer();
         InputStream is = req.getInputStream();
-        
-        BufferedReader br = new BufferedReader(new InputStreamReader(is,
-                "utf-8"));
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(is, "utf-8"));
         String s = "";
         while ((s = br.readLine()) != null) {
             sb.append(s);
         }
         if (sb.toString().length() <= 0) {
             return null;
-        }
-        else {
+        } else {
             return JSONObject.parseObject(sb.toString());
         }
     }
-    
+
 }

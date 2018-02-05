@@ -1,6 +1,11 @@
 package com.dongnao.jack.loadbalance;
 
+/**
+ * 节点信息
+ * @author coderyao
+ */
 public class NodeInfo {
+
     private String host;
     
     private String port;

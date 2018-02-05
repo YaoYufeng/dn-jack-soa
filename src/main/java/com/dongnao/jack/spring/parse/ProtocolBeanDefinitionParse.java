@@ -9,18 +9,19 @@ import org.w3c.dom.Element;
 /** 
  * @Description protocol标签的解析 
  * @ClassName   ProtocolBeanDefinitionParse 
- * @Date        2017年11月11日 下午9:30:35 
- * @Author      dn-jack 
+ * @date        2017年11月11日 下午9:30:35 
+ * @author      dn-jack 
  */
 
 public class ProtocolBeanDefinitionParse implements BeanDefinitionParser {
-    
+
     private Class<?> beanClass;
-    
+
     public ProtocolBeanDefinitionParse(Class<?> beanClass) {
         this.beanClass = beanClass;
     }
-    
+
+    @Override
     public BeanDefinition parse(Element element, ParserContext parserContext) {
         RootBeanDefinition beanDefinition = new RootBeanDefinition();
         //spring会把这个beanClass进行实例化  BeanDefinitionNames??
@@ -30,7 +31,7 @@ public class ProtocolBeanDefinitionParse implements BeanDefinitionParser {
         String host = element.getAttribute("host");
         String port = element.getAttribute("port");
         String contextpath = element.getAttribute("contextpath");
-        
+
         if (name == null || "".equals(name)) {
             throw new RuntimeException("protocol name 不能为空！");
         }
@@ -40,16 +41,13 @@ public class ProtocolBeanDefinitionParse implements BeanDefinitionParser {
         if (port == null || "".equals(port)) {
             throw new RuntimeException("protocol port 不能为空！");
         }
-        
+
         beanDefinition.getPropertyValues().addPropertyValue("name", name);
         beanDefinition.getPropertyValues().addPropertyValue("host", host);
         beanDefinition.getPropertyValues().addPropertyValue("port", port);
-        beanDefinition.getPropertyValues().addPropertyValue("contextpath",
-                contextpath);
-        parserContext.getRegistry().registerBeanDefinition("protocol" + host
-                + port,
-                beanDefinition);
+        beanDefinition.getPropertyValues().addPropertyValue("contextpath", contextpath);
+        parserContext.getRegistry().registerBeanDefinition("protocol" + host + port, beanDefinition);
         return beanDefinition;
     }
-    
+
 }

@@ -17,6 +17,9 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.dongnao.jack.configBean.Service;
 
+/**
+ * @author coderyao
+ */
 public class NettyServerInHandler extends ChannelInboundHandlerAdapter {
     
     @Override

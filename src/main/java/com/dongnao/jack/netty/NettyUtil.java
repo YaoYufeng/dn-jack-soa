@@ -14,8 +14,8 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 /** 
  * @Description netty通讯的工具类 
  * @ClassName   NettyUtil 
- * @Date        2017年11月18日 下午8:15:10 
- * @Author      dn-jack 
+ * @date        2017年11月18日 下午8:15:10
+ * @author      dn-jack
  */
 
 public class NettyUtil {

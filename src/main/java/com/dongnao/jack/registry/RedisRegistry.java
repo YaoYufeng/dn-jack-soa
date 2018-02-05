@@ -14,19 +14,19 @@ import com.dongnao.jack.configBean.Service;
 import com.dongnao.jack.redis.RedisApi;
 
 /** 
- * @Description 这个是redis的注册中心处理类 
- * @ClassName   RedisRegistry 
- * @Date        2017年11月14日 下午8:54:40 
- * @Author      dn-jack 
+ * @description 这个是redis的注册中心处理类
+ * @classname   RedisRegistry
+ * @date        2017年11月14日 下午8:54:40
+ * @author      dn-jack
  */
 
 public class RedisRegistry implements BaseRegistry {
-    
+
     public boolean registry(String ref, ApplicationContext application) {
         try {
             Protocol protocol = application.getBean(Protocol.class);
             Map<String, Service> services = application.getBeansOfType(Service.class);
-            
+
             Registry registry = application.getBean(Registry.class);
             RedisApi.createJedisPool(registry.getAddress());
             for (Map.Entry<String, Service> entry : services.entrySet()) {
@@ -34,22 +34,20 @@ public class RedisRegistry implements BaseRegistry {
                     JSONObject jo = new JSONObject();
                     jo.put("protocol", JSONObject.toJSONString(protocol));
                     jo.put("service", JSONObject.toJSONString(entry.getValue()));
-                    
+
                     JSONObject ipport = new JSONObject();
-                    ipport.put(protocol.getHost() + ":" + protocol.getPort(),
-                            jo);
+                    ipport.put(protocol.getHost() + ":" + protocol.getPort(), jo);
                     //                RedisApi.lpush(ipport, ref);
                     lpush(ipport, ref);
                 }
             }
             return true;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
     }
-    
+
     private void lpush(JSONObject ipport, String key) {
         if (RedisApi.exists(key)) {
             Set<String> keys = ipport.keySet();
@@ -58,24 +56,23 @@ public class RedisRegistry implements BaseRegistry {
             for (String kk : keys) {
                 ipportStr = kk;
             }
-            
+
             //拿redis对应key里面的 内容
             List<String> registryInfo = RedisApi.lrange(key);
             List<String> newRegistry = new ArrayList<String>();
-            
+
             boolean isold = false;
-            
+
             for (String node : registryInfo) {
                 JSONObject jo = JSONObject.parseObject(node);
                 if (jo.containsKey(ipportStr)) {
                     newRegistry.add(ipport.toJSONString());
                     isold = true;
-                }
-                else {
+                } else {
                     newRegistry.add(node);
                 }
             }
-            
+
             if (isold) {
                 //这里是老机器启动去重
                 if (newRegistry.size() > 0) {
@@ -86,18 +83,16 @@ public class RedisRegistry implements BaseRegistry {
                     }
                     RedisApi.lpush(key, newReStr);
                 }
-            }
-            else {
+            } else {
                 //这里是加入新启动的机器
                 RedisApi.lpush(key, ipport.toJSONString());
             }
-        }
-        else {
-            //所有的都是第一次啟動
+        } else {
+            //所有的都是第一次启动
             RedisApi.lpush(key, ipport.toJSONString());
         }
     }
-    
+
     public List<String> getRegistry(String id, ApplicationContext application) {
         try {
             Registry registry = application.getBean(Registry.class);
@@ -106,8 +101,7 @@ public class RedisRegistry implements BaseRegistry {
                 //拿key对应的list
                 return RedisApi.lrange(id);
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;

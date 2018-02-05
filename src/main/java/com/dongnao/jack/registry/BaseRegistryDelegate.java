@@ -6,11 +6,15 @@ import org.springframework.context.ApplicationContext;
 
 import com.dongnao.jack.configBean.Registry;
 
+/**
+ * @author coderyao
+ */
 public class BaseRegistryDelegate {
+
     public static void registry(String ref, ApplicationContext application) {
         Registry registry = application.getBean(Registry.class);
         String protocol = registry.getProtocol();
-        BaseRegistry registryBean = registry.getRegistryMap().get(protocol);
+        BaseRegistry registryBean = Registry.getRegistryMap().get(protocol);
         registryBean.registry(ref, application);
     }
     
@@ -18,7 +22,7 @@ public class BaseRegistryDelegate {
             ApplicationContext application) {
         Registry registry = application.getBean(Registry.class);
         String protocol = registry.getProtocol();
-        BaseRegistry registryBean = registry.getRegistryMap().get(protocol);
+        BaseRegistry registryBean = Registry.getRegistryMap().get(protocol);
         
         return registryBean.getRegistry(id, application);
     }

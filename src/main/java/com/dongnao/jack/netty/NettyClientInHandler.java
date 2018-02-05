@@ -7,6 +7,9 @@ import io.netty.channel.ChannelPromise;
 
 import java.net.SocketAddress;
 
+/**
+ * @author coderyao
+ */
 public class NettyClientInHandler extends ChannelInboundHandlerAdapter {
     
     public StringBuffer message;

@@ -4,8 +4,13 @@ import java.util.List;
 
 import org.springframework.context.ApplicationContext;
 
+/**
+ * 注册中心处理类
+ * @author coderyao
+ */
 public interface BaseRegistry {
-    public boolean registry(String param, ApplicationContext application);
-    
-    public List<String> getRegistry(String id, ApplicationContext application);
+
+    boolean registry(String param, ApplicationContext application);
+
+    List<String> getRegistry(String id, ApplicationContext application);
 }

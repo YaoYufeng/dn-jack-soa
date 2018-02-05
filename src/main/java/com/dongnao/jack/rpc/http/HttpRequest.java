@@ -3,8 +3,8 @@
  * @File        HttpRequest.java 
  * @Package     com.soshare.common.util 
  * @Version     V1.0 
- * @Date        2015骞�1鏈�鏃�涓婂崍9:27:32 
- * @Author      luoyang
+ * @date        2015骞�1鏈�鏃�涓婂崍9:27:32
+ * @author      luoyang
  */
 
 package com.dongnao.jack.rpc.http;
@@ -12,8 +12,8 @@ package com.dongnao.jack.rpc.http;
 /** 
  * @Description TODO 
  * @ClassName   HttpRequest 
- * @Date        2015骞�1鏈�鏃�涓婂崍9:27:33 
- * @Author      luoyang 
+ * @date        2015骞�1鏈�鏃�涓婂崍9:27:33
+ * @author      luoyang
  */
 
 import java.io.BufferedReader;

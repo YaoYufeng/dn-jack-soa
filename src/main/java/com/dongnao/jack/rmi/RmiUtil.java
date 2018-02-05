@@ -9,6 +9,9 @@ import java.rmi.registry.LocateRegistry;
 
 import com.dongnao.jack.loadbalance.NodeInfo;
 
+/**
+ * @author coderyao
+ */
 public class RmiUtil {
     
     /** 
@@ -29,15 +32,12 @@ public class RmiUtil {
             System.out.println("rmi server start !!!");
         }
         catch (RemoteException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         catch (MalformedURLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         catch (AlreadyBoundException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -51,15 +51,12 @@ public class RmiUtil {
                     + id);
         }
         catch (MalformedURLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         catch (RemoteException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         catch (NotBoundException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return null;

@@ -9,12 +9,13 @@ import com.alibaba.fastjson.JSONObject;
 /** 
  * @Description  随机的负载均衡算法
  * @ClassName   RandomLoadBalance 
- * @Date        2017年11月14日 下午10:24:30 
- * @Author      dn-jack 
+ * @date        2017年11月14日 下午10:24:30
+ * @author      dn-jack
  */
 
 public class RandomLoadBalance implements LoadBalance {
-    
+
+    @Override
     public NodeInfo doSelect(List<String> registryInfo) {
         Random random = new Random();
         int index = random.nextInt(registryInfo.size());

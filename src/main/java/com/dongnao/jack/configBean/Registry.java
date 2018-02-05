@@ -11,6 +11,10 @@ import org.springframework.context.ApplicationContextAware;
 import com.dongnao.jack.registry.BaseRegistry;
 import com.dongnao.jack.registry.RedisRegistry;
 
+/**
+ *
+ * @author coderyao
+ */
 public class Registry extends BaseConfigBean implements InitializingBean,
         ApplicationContextAware {
     
@@ -40,7 +44,7 @@ public class Registry extends BaseConfigBean implements InitializingBean,
     //    public Registry() {
     //    	registryMap.put("redis", new RedisRegistry());
     //    }
-    
+
     public void afterPropertiesSet() throws Exception {
         
     }

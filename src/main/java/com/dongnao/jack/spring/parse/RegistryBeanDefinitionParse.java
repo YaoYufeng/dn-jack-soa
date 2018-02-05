@@ -9,8 +9,8 @@ import org.w3c.dom.Element;
 /** 
  * @Description Registry标签的解析类 
  * @ClassName   RegistryBeanDefinitionParse 
- * @Date        2017年11月11日 下午9:22:12 
- * @Author      dn-jack 
+ * @date        2017年11月11日 下午9:22:12
+ * @author      dn-jack
  */
 
 public class RegistryBeanDefinitionParse implements BeanDefinitionParser {
@@ -21,7 +21,8 @@ public class RegistryBeanDefinitionParse implements BeanDefinitionParser {
     public RegistryBeanDefinitionParse(Class<?> beanClass) {
         this.beanClass = beanClass;
     }
-    
+
+    @Override
     public BeanDefinition parse(Element element, ParserContext parserContext) {
         RootBeanDefinition beanDefinition = new RootBeanDefinition();
         //spring会把这个beanClass进行实例化  BeanDefinitionNames??

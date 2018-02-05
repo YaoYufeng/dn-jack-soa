@@ -9,8 +9,8 @@ import org.w3c.dom.Element;
 /** 
  * @Description service标签的解析类 
  * @ClassName   ServiceBeanDefinitionParse 
- * @Date        2017年11月11日 下午9:33:59 
- * @Author      dn-jack 
+ * @date        2017年11月11日 下午9:33:59
+ * @author      dn-jack
  */
 
 public class ServiceBeanDefinitionParse implements BeanDefinitionParser {
@@ -19,7 +19,8 @@ public class ServiceBeanDefinitionParse implements BeanDefinitionParser {
     public ServiceBeanDefinitionParse(Class<?> beanClass) {
         this.beanClass = beanClass;
     }
-    
+
+    @Override
     public BeanDefinition parse(Element element, ParserContext parserContext) {
         RootBeanDefinition beanDefinition = new RootBeanDefinition();
         //spring会把这个beanClass进行实例化  BeanDefinitionNames??

@@ -8,17 +8,14 @@ import com.dongnao.jack.configBean.Registry;
 import com.dongnao.jack.configBean.Service;
 
 public class SOANamespaceHandler extends NamespaceHandlerSupport {
-    
+
+    @Override
     public void init() {
-        registerBeanDefinitionParser("registry",
-                new RegistryBeanDefinitionParse(Registry.class));
-        registerBeanDefinitionParser("protocol",
-                new ProtocolBeanDefinitionParse(Protocol.class));
-        registerBeanDefinitionParser("reference",
-                new ReferenceBeanDifinitionParse(Reference.class));
-        registerBeanDefinitionParser("service", new ServiceBeanDefinitionParse(
-                Service.class));
-        
+        registerBeanDefinitionParser("registry", new RegistryBeanDefinitionParse(Registry.class));
+        registerBeanDefinitionParser("protocol", new ProtocolBeanDefinitionParse(Protocol.class));
+        registerBeanDefinitionParser("reference", new ReferenceBeanDifinitionParse(Reference.class));
+        registerBeanDefinitionParser("service", new ServiceBeanDefinitionParse(Service.class));
+
     }
-    
+
 }

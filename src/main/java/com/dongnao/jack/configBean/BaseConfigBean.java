@@ -2,6 +2,10 @@ package com.dongnao.jack.configBean;
 
 import java.io.Serializable;
 
+/**
+ *
+ * @author coderyao
+ */
 public abstract class BaseConfigBean implements Serializable {
     
     /** 
